@@ -11,21 +11,28 @@ import {
   Text,
   View
 } from 'react-native';
+import { LoginButton } from 'react-native-fbsdk';
 
 export default class Posterific extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <LoginButton
+          onLoginFinished={
+              (error, result) => {
+                if (error) {
+                  alert("Login failed");
+                } else if (result.isCancelled) {
+                  alert("Login is cancelled");
+                } else {
+                  alert("login success");
+                }
+              }
+          }
+          onLogoutFinished={
+            alert("logout")
+          }
+        />
       </View>
     );
   }
